@@ -19,4 +19,7 @@ RUN virtualenv --no-site-packages -p python2 /opt/letsencrypt/venv && \
 
 ENV PATH /opt/letsencrypt/venv/bin:$PATH
 
-ENTRYPOINT [ "certbot" ]
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+CMD /start.sh

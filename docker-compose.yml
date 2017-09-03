@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  haproxy:
+    restart: always
+    image: haproxy:1.6
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - BALANCE=roundrobin
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - keys:/etc/haproxy/certs
+  lighttpd:
+    restart: always
+    image: sebp/lighttpd
+    volumes:
+      - static:/var/www/localhost/htdocs
+  encrypt:
+    build: .
+    image: nouchka/letsencrypt
+    environment:
+      - DOMAINS=test.example.com sub.test.example.com
+    volumes:
+      - static:/certs
+      - keys:/etc/letsencrypt
+
+volumes:
+  static:
+    driver: local
+  keys:
+    driver: local
