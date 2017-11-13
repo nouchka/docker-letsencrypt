@@ -1,7 +1,7 @@
-from debian:latest
+from debian:stable-slim
 RUN apt-get update \ 
     && apt-get install -y \
-        git-core 
+        git-core cron procps
 run git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt/src
 run /opt/letsencrypt/src/letsencrypt-auto --os-packages-only && \
     apt-get clean && \
