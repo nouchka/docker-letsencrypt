@@ -22,4 +22,4 @@ ENV PATH /opt/letsencrypt/venv/bin:$PATH
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-CMD /start.sh
+ENTRYPOINT /start.sh
