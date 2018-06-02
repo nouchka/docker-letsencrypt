@@ -6,7 +6,7 @@
 [![](https://images.microbadger.com/badges/version/nouchka/letsencrypt.svg)](https://microbadger.com/images/nouchka/letsencrypt "Get your own version badge on microbadger.com")
 [![Docker Automated buil](https://img.shields.io/docker/automated/nouchka/letsencrypt.svg)](https://hub.docker.com/r/nouchka/letsencrypt/)
 
-# Usage
+# Usage (deprecated branch apache, docker tag latest to avoid breaking current)
 
 Based on docker image lojzik/dockerfile-letsencrypt which provides certbot.
 Check in docker-compose.yml for a working example, just complete haproxy conf file.
@@ -15,11 +15,12 @@ Lighhtpd will provide theses files.
 Haproxy will have a txt file with the list of ssl certificates to use.
 Haproxy has to route traffic to lighttpd for url starting with /.well-known
 
-# Todo
+# Usage (branch master, docker tag cloudflare)
 
-* launch lighhtpd only during certbot generation
-* switch to docker-compose v3
-* switch to haproxy swarm mode
+cp env.template .env
+change email, api token and domain
+make run
+Haproxy will have a txt file with the list of ssl certificates to use.
 
 # Donate
 

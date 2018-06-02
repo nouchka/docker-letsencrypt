@@ -1,13 +1,8 @@
-#!/bin/bash
-
-## to allow monitoring check
-mkdir -p /certs/.well-known/
-echo 'GGT' > /certs/.well-known/index.html
+#!/bin/sh
 
 mkdir -p /etc/letsencrypt/live/
-
 CRT_LIST=/etc/letsencrypt/live/crt-list.txt.tmp
-FLAG=/certs/.well-known/loading.html
+FLAG=/etc/letsencrypt/.flag
 
 [ ! -f $CRT_LIST ] || rm -rf $CRT_LIST
 [ ! -f $FLAG ] || rm -rf $FLAG
@@ -22,13 +17,6 @@ dns_cloudflare_email = $CF_EMAIL
 EOF
 chmod 600 $CF_CONF
 
-function generate_domain {
-	FULLDOMAIN=$1
-	echo "Generating $FULLDOMAIN"
-	DOMAIN=`echo $FULLDOMAIN|grep -Eo '[^.]+\.[^.]+$'`
-	certbot certonly  --keep-until-expiring --expand --text --non-interactive --agree-tos --email letsencrypt@$DOMAIN -d $FULLDOMAIN -a webroot --webroot-path /certs/
-}
-
 function generate_wildcard {
 	WILDCARD=$1
 	echo "Generating *.$WILDCARD"
@@ -39,12 +27,6 @@ function generate_wildcard {
 		--agree-tos --email letsencrypt@$WILDCARD \
 		--server https://acme-v02.api.letsencrypt.org/directory
 }
-
-## generate non-wildcard domain
-for subdomain in $DOMAINS
-do
-	generate_domain $subdomain
-done
 
 ## generate wildcard domain with cloudflare
 for domain in $WILDCARDS
