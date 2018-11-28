@@ -21,6 +21,7 @@ function generate_wildcard {
 	WILDCARD=$1
 	echo "Generating *.$WILDCARD"
 	certbot certonly --non-interactive \
+		-d $WILDCARD \
 		-d *.$WILDCARD \
 		--dns-cloudflare \
 		--dns-cloudflare-credentials $CF_CONF \
