@@ -1,4 +1,8 @@
 FROM certbot/certbot:v0.24.0
+LABEL maintainer="Jean-Avit Promis docker@katagena.com"
+LABEL org.label-schema.vcs-url="https://github.com/nouchka/docker-letsencrypt"
+
+
 ENV VERSION=0.24.0
 
 COPY start.sh /start.sh
